@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 1.1.1 - 2024.01.31
+## 1.1.1 - 2024.04.16
 ### Added
 * Add `phpstan` and `ecs` code linting
 * Add `code-analysis.yaml` GitHub action
