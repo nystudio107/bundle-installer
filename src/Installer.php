@@ -15,7 +15,9 @@ use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Util\Filesystem;
+use Dotenv\Dotenv;
 use React\Promise\PromiseInterface;
+use RuntimeException;
 
 /**
  * Class Installer
@@ -43,7 +45,11 @@ class Installer extends BaseLibraryInstaller
     public function __construct(IOInterface $io, Composer $composer, $type = self::TWIG_BUNDLE_PACKAGE_TYPE, Filesystem $filesystem = null, BinaryInstaller $binaryInstaller = null)
     {
         parent::__construct($io, $composer, $type, $filesystem, $binaryInstaller);
-        $this->vendorDir = rtrim(self::TEMPLATES_VENDOR_DIR, '/');
+        // Load dotenv?
+        if (class_exists('Dotenv\Dotenv')) {
+            Dotenv::createUnsafeMutable(__DIR__)->safeLoad();
+        }
+        $this->vendorDir = rtrim(getenv('TEMPLATES_VENDOR_DIR') ?: self::TEMPLATES_VENDOR_DIR, '/');
         $this->type = self::TWIG_BUNDLE_PACKAGE_TYPE;
     }
 
@@ -101,7 +107,7 @@ class Installer extends BaseLibraryInstaller
         $dir = self::TEMPLATES_VENDOR_DIR;
         if (!file_exists($dir)) {
             if (!mkdir($dir, 0777, true) && !is_dir($dir)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $dir));
             }
         }
         // Create the .gitignore file if it doesn't exist
