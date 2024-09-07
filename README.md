@@ -115,8 +115,8 @@ Example including a template from a Twig Bundle:
 Since Twig Bundle Installer is looking for a directory in your project root named `templates/` that points to your Twig templates directory:
 
 * You should treat the `templates/vendor/` directory as **read only** just like you do the `vendor/` directory
-* If you store your templates somewhere else, for now you must create a symlink or alias from `templates/` to where you store your templates
-* If you exclude your `vendor/` directory from your Git repo, you probably would want to add `templates/vendor/` to your `.gitignore` as well
+* If you store your templates somewhere else, you can create a symlink or alias from `templates/` to where you store your templates, or you can set the `TEMPLATES_VENDOR_DIR` environment variable (either in the environment itself, or in your `.env` file in your project root if you're using [Dotenv](https://github.com/vlucas/phpdotenv))
+* If you exclude your `vendor/` directory from your Git repo, you probably would want to add `templates/vendor/` to your `.gitignore` as well. Twig Bundle Installer will automatically put `.gitignore` file in the `templates/vendor/` directory for you
 
 Example `.gitignore` file:
 ```
@@ -189,7 +189,6 @@ This project is usable as-is, but it's also very much in the germination phase. 
 
 Some ideas:
 
-* The templates directory shouldn't be hard-coded
 * Bundles could include CSS and JavaScript that the installer builds a `manifest.json` for something else to consume
 * Framework specific tools could compliment Twig Bundle Installer by automatically publishing bundles on the frontend
 * Technically, the technique described here would work fine for [Antlers](https://docs.statamic.com/antlers) or [Blade](https://laravel.com/docs/5.8/blade) and other templating systems as well.
