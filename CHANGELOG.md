@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.1.2 - 2024.09.07
+### Added
+* Added support for the `TEMPLATES_VENDOR_DIR` environment variable, either defined in the environment itself, or in a `.env` file if [Dotenv](https://github.com/vlucas/phpdotenv)) is used
+
 ## 1.1.1 - 2024.04.16
 ### Added
 * Add `phpstan` and `ecs` code linting
